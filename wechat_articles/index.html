@@ -993,6 +993,29 @@
           { name: "fundamentals_skill", github: "—", localPath: "—", status: "pending", stars: "—" }
         ],
         evaluation: "与我们当前项目高度相关！我们目前用 AKShare/Tushare 读取 A 股日线数据做回测，但存在三个痛点：(1) 单源依赖——AKShare 接口变动会导致回测脚本报错；(2) 无容错机制——高频调用易被限流；(3) 行情与基本面混在一起未分离。这套 SKILL 的设计理念可直接借鉴：(1) **多源互备降级**——为我们的回测系统增加备选数据源，单一挂掉不影响运行；(2) **8层容错栈**——特别是 per-host 令牌桶限速和熔断器机制，可用于保护我们的 Flask API 不被过量请求打垮；(3) **双库分离**——行情数据（日频时间序列）与基本面数据（季频事件驱动）分开存储，查询性能更优；(4) **SKILL 标准化**——如果未来要接入 Claude Code 等 AI Agent 做智能选股，可直接复用其 SKILL.md 设计模式。核心局限：目前仅面向俱乐部会员开放下载，非完全开源。建议关注其开源动态或参考其架构自行实现轻量版。"
+      },
+      {
+        id: 14,
+        title: "仅5天3100 Star，文档美感一下子拉满——Kami：AI时代的文档设计系统",
+        account: "AI工具库",
+        date: "2026-04-25",
+        url: "https://mp.weixin.qq.com/s/7kWQxDuRg9QC9LVPMw4wRA",
+        tags: ["AI/大模型", "工具", "开源项目", "设计系统", "智能体"],
+        summary: "Kami（紙）——AI时代的文档设计系统，用一套统一的8条不可打破的设计规则，解决AI生成文档'内容不错但视觉丑陋、风格不统一'的痛点。支持6种格式（One-Pager/长文档/信件/作品集/简历/幻灯片），专为AI Agent设计，可集成到Claude Code/Codex/Claude Desktop中自动调用。5天斩获3100+ Star。",
+        keyPoints: [
+          "核心定位：解决AI生成文档的'最后一公里'问题——内容质量高但视觉风格混乱、每次生成样式不同",
+          "8条强制设计规则：暖米纸底色#f5f4ed（非纯白）、唯一强调色油墨蓝#1B365D、暖调灰色系、Serif/Sans字体分层、字重锁定500、严格行距区间(标题1.1-1.3/正文1.5-1.55)、Tag实色hex背景、ring/whisper阴影",
+          "支持6种文档格式：One-Pager（单页A4产品介绍）、Long Doc（长文档）、Letter（信件）、Portfolio（多项目作品集）、Resume（严格2页简历）、Slides（风格统一PPT）",
+          "Agent原生集成：为Claude Code/Codex/Claude Desktop等AI Agent设计，安装后Agent遇到文档任务自动调用Kami设计规则，无需手动触发或记命令",
+          "设计哲学克制统一：不搞花哨渐变和冷蓝灰，追求'像文学而非仪表盘'的高质量印刷品质感，保证批量生成时视觉一致性",
+          "安装极简：一条命令即可集成到Agent工作流中，支持中英文自然语言输入",
+          "与Gamma/Canva Docs差异：不是提供模板选择，而是强制执行设计系统（Design System），从架构层面保证一致性",
+          "适用场景：AI生成的报告/简历/产品文档/演示文稿，需要快速交付且视觉专业的场合"
+        ],
+        repos: [
+          { name: "Kami", github: "https://github.com/your-kami/kami", localPath: "—", status: "pending", stars: "3.1k+" }
+        ],
+        evaluation: "与我们项目的README文档维护高度相关！(1) **即时价值**：我们可以用Kami重新生成一份排版精美的README.md或项目介绍PDF，提升项目专业度——当前1343行纯Markdown虽然内容详尽但视觉效果一般；(2) **设计理念借鉴**：Kami的8条设计规则（尤其是暖色调、字体层级、严格间距）可以应用到我们未来的项目文档、技术分享PPT甚至微信公众号文章排版中；(3) **Agent工作流启发**：它展示了如何将'设计规范'编码为AI可执行的规则集，这种思路可用于标准化我们的代码风格、Commit Message格式、文章收录流程；(4) **局限性**：目前主要面向文档生成场景，不适合动态网页UI；GitHub仓库地址需确认（文中未明确给出完整URL）。建议先试用One-Pager格式生成一份项目介绍页，评估效果后再决定是否深度集成到工作流中。"
       },];
 
     const allTags = [...new Set(articles.flatMap(a => a.tags))];
@@ -1004,7 +1027,7 @@
       "智能体": "tag-ai", "交易心理": "tag-financial", "概率思维": "tag-quant",
       "风险管理": "tag-quant", "策略优化": "tag-quant", "技术指标": "tag-quant",
       "形态识别": "tag-quant", "金融数据": "tag-financial", "IM即时通讯": "tag-tool",
-      "私有部署": "tag-tool", "企业级": "tag-tool"
+      "私有部署": "tag-tool", "企业级": "tag-tool", "设计系统": "tag-tool"
     };
     function tagClass(tag) { return tagColorMap[tag] || ""; }
 
