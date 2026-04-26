@@ -70,9 +70,6 @@
       background: var(--surface);
       border-radius: 10px;
       border: 1px solid var(--border);
-      position: sticky;
-      top: 0;
-      z-index: 100;
       margin-bottom: 20px;
     }
 
@@ -80,6 +77,18 @@
       flex: 1;
       min-width: 220px;
       position: relative;
+    }
+
+    @media (max-width:600px) {
+      .search-box {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: var(--surface);
+        padding: 10px 0;
+        margin: -12px -12px 10px -12px;
+        border-bottom: 1px solid var(--border);
+      }
     }
 
     .search-box input {
@@ -108,10 +117,21 @@
     }
 
     /* Tag filters */
+    .tag-filters-wrapper {
+      width: 100%;
+    }
+
     .tag-filters {
       display: flex;
       gap: 6px;
       flex-wrap: wrap;
+      max-height: 120px;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+
+    .tag-filters.expanded {
+      max-height: none;
     }
 
     .tag-btn {
@@ -136,6 +156,23 @@
       color: #fff;
       border-color: var(--accent);
       font-weight: 600;
+    }
+
+    .toggle-tags-btn {
+      margin-top: 10px;
+      padding: 6px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--accent);
+      transition: all .2s;
+      display: block;
+    }
+
+    .toggle-tags-btn:hover {
+      background: rgba(88, 166, 255, 0.1);
     }
 
     .clear-btn {
@@ -166,31 +203,6 @@
     .stats b {
       color: var(--accent);
       font-size: 18px;
-    }
-
-    /* Topic Nav */
-    .topic-nav {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 20px;
-    }
-
-    .topic-nav a {
-      padding: 8px 18px;
-      border-radius: 8px;
-      text-decoration: none;
-      color: var(--text);
-      background: var(--surface);
-      border: 1px solid var(--border);
-      font-size: 14px;
-      transition: all .2s;
-    }
-
-    .topic-nav a:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      transform: translateY(-1px);
     }
 
     /* ========== Article Cards with Collapse ==========
@@ -532,6 +544,11 @@
       display: block;
     }
 
+    .no-results-hint {
+      font-size: 13px;
+      color: #555;
+    }
+
     /* Footer */
     .footer {
       text-align: center;
@@ -606,6 +623,25 @@
       .toolbar {
         padding: 12px;
       }
+
+      .tag-filters {
+        max-height: 80px;
+      }
+
+      .tag-btn {
+        padding: 5px 10px;
+        font-size: 12px;
+      }
+    }
+
+    @media (min-width:601px) {
+      .tag-filters {
+        max-height: none;
+      }
+      
+      .toggle-tags-btn {
+        display: none;
+      }
     }
   </style>
 </head>
@@ -623,8 +659,11 @@
     <div class="search-box">
       <input type="text" id="searchInput" placeholder="搜索标题、项目名、关键词..." oninput="filterCards()">
     </div>
-    <div class="tag-filters" id="tagFilters"></div>
-    <button class="clear-btn" onclick="resetFilters()">✕ 清除筛选</button>
+    <div class="tag-filters-wrapper">
+      <div class="tag-filters" id="tagFilters"></div>
+      <button type="button" class="toggle-tags-btn" id="toggleTagsBtn" onclick="toggleTags()">显示更多 ▼</button>
+    </div>
+    <button type="button" class="clear-btn" onclick="resetFilters()">✕ 清除筛选</button>
   </div>
 
   <!-- Stats -->
@@ -634,19 +673,16 @@
 
   <!-- Batch actions -->
   <div class="batch-actions">
-    <button class="batch-btn" onclick="expandAll()">📂 全部展开</button>
-    <button class="batch-btn" onclick="collapseAll()">📁 全部折叠</button>
+    <button type="button" class="batch-btn" onclick="expandAll()">📂 全部展开</button>
+    <button type="button" class="batch-btn" onclick="collapseAll()">📁 全部折叠</button>
   </div>
-
-  <!-- Topic Navigation -->
-  <div class="topic-nav" id="topicNav"></div>
 
   <!-- Articles Container -->
   <div id="articlesContainer"></div>
 
   <!-- No Results -->
   <div class="no-results" id="noResults">
-    🔍 没有找到匹配的文章<br><span style="font-size:13px;color:#555">试试换个关键词或清除筛选</span>
+    🔍 没有找到匹配的文章<br><span class="no-results-hint">试试换个关键词或清除筛选</span>
   </div>
 
   <!-- Footer -->
@@ -655,7 +691,7 @@
     新增文章请发送链接给 AI 自动收录 · 点击任意卡片展开详情
   </div>
 
-  <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+  <button type="button" class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
 
   <script>
@@ -972,17 +1008,24 @@
     };
     function tagClass(tag) { return tagColorMap[tag] || ""; }
 
+    // ========== 标签切换 ==========
+    function toggleTags() {
+      const tagFilters = document.getElementById('tagFilters');
+      const toggleBtn = document.getElementById('toggleTagsBtn');
+      
+      tagFilters.classList.toggle('expanded');
+      
+      if (tagFilters.classList.contains('expanded')) {
+        toggleBtn.textContent = '收起 ▲';
+      } else {
+        toggleBtn.textContent = '显示更多 ▼';
+      }
+    }
+
     // ========== 渲染 ==========
     function renderTagFilters() {
       document.getElementById('tagFilters').innerHTML = allTags.map(tag =>
         `<button class="tag-btn" data-tag="${tag}" onclick="toggleTag(this)">${tag}</button>`
-      ).join('');
-    }
-
-    function renderTopicNav() {
-      const topics = ["全部文章", ...allTags];
-      document.getElementById('topicNav').innerHTML = topics.map((t, i) =>
-        `<a href="#">${i === 0 ? '📋 ' : ''}${t}</a>`
       ).join('');
     }
 
@@ -1133,7 +1176,6 @@
 
     // ========== 初始化 ==========
     renderTagFilters();
-    renderTopicNav();
     renderArticles();
   </script>
 </body>
