@@ -1016,7 +1016,31 @@
           { name: "Kami", github: "https://github.com/your-kami/kami", localPath: "—", status: "pending", stars: "3.1k+" }
         ],
         evaluation: "与我们项目的README文档维护高度相关！(1) **即时价值**：我们可以用Kami重新生成一份排版精美的README.md或项目介绍PDF，提升项目专业度——当前1343行纯Markdown虽然内容详尽但视觉效果一般；(2) **设计理念借鉴**：Kami的8条设计规则（尤其是暖色调、字体层级、严格间距）可以应用到我们未来的项目文档、技术分享PPT甚至微信公众号文章排版中；(3) **Agent工作流启发**：它展示了如何将'设计规范'编码为AI可执行的规则集，这种思路可用于标准化我们的代码风格、Commit Message格式、文章收录流程；(4) **局限性**：目前主要面向文档生成场景，不适合动态网页UI；GitHub仓库地址需确认（文中未明确给出完整URL）。建议先试用One-Pager格式生成一份项目介绍页，评估效果后再决定是否深度集成到工作流中。"
-      },];
+      },
+      {
+        id: 15,
+        title: "高盛把自家量化工具包开源了！衍生品定价、风险分析、Greeks计算、策略回测",
+        account: "量化Quantide",
+        date: "2026-05-10",
+        url: "https://mp.weixin.qq.com/s/n21vHx8-M36AQ0Eq9hiScA",
+        tags: ["量化框架", "工具", "开源项目", "风险管理"],
+        summary: "gs-quant是高盛开源的Python量化金融工具包，提供衍生品定价、风险分析、Greeks计算、策略回测等机构级功能。覆盖股/债/汇/商品/衍生品全资产类别，采用Black-Scholes、Monte Carlo等专业定价模型。1万+Star，Apache 2.0许可证。",
+        keyPoints: [
+          "高盛官方出品：gs-quant是华尔街投行级量化工具，1万+Star，Apache 2.0许可证免费使用",
+          "全资产覆盖：股票期权、利率互换、外汇期权、商品期货、结构性产品，覆盖股/债/汇/商品/衍生品",
+          "衍生品定价：支持Black-Scholes、Monte Carlo等机构级定价模型，散户工具几乎无此能力",
+          "Greeks计算：自动计算Delta、Gamma、Vega、Theta等期权敏感度指标",
+          "风险分析：内置VaR、压力测试、情景分析等机构级风控模块",
+          "策略回测：跨资产策略回测框架，支持多资产组合、定期调仓、绩效归因",
+          "时间序列分析：returns、volatility、correlation等统计指标计算",
+          "散户工具差距：从'茅台涨了多少？'到'组合VaR在99%置信水平下是多少？'——差距在认知不在工具"
+        ],
+        repos: [
+          { name: "gs-quant", github: "https://github.com/goldmansachs/gs-quant", localPath: "—", status: "pending", stars: "10k+" }
+        ],
+        evaluation: "与我们当前项目高度相关！(1) **工具链补全**：我们用AKShare获取数据、用ta计算指标、用Backtesting.py回测，gs-quant可以补全'机构级定价和风控'这一环；(2) **风险管理升级**：当前用固定止损/动态回撤控制，gs-quant的VaR/压力测试模块可实现更专业的风险度量；(3) **组合优化参考**：Riskfolio-Lib做仓位分配，gs-quant做组合级风险分析，两者可形成完整的风控体系；(4) **学习价值**：gs-quant文档和代码展示了华尔街如何做量化，是进阶学习的绝佳资源。核心局限：主要面向全球市场（美股/外汇/利率衍生品），A股支持有限；部分高级API需要Marquee平台凭证。建议先用基础功能（期权定价、Greeks计算）练手，理解机构级量化的思维方式。"
+      }
+    ];
 
     const allTags = [...new Set(articles.flatMap(a => a.tags))];
 
