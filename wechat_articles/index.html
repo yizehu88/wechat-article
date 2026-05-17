@@ -1039,6 +1039,30 @@
           { name: "gs-quant", github: "https://github.com/goldmansachs/gs-quant", localPath: "—", status: "pending", stars: "10k+" }
         ],
         evaluation: "与我们当前项目高度相关！(1) **工具链补全**：我们用AKShare获取数据、用ta计算指标、用Backtesting.py回测，gs-quant可以补全'机构级定价和风控'这一环；(2) **风险管理升级**：当前用固定止损/动态回撤控制，gs-quant的VaR/压力测试模块可实现更专业的风险度量；(3) **组合优化参考**：Riskfolio-Lib做仓位分配，gs-quant做组合级风险分析，两者可形成完整的风控体系；(4) **学习价值**：gs-quant文档和代码展示了华尔街如何做量化，是进阶学习的绝佳资源。核心局限：主要面向全球市场（美股/外汇/利率衍生品），A股支持有限；部分高级API需要Marquee平台凭证。建议先用基础功能（期权定价、Greeks计算）练手，理解机构级量化的思维方式。"
+      },
+      {
+        id: 16,
+        title: "NVIDIA NIM 平台：100年免费Key，DeepSeek满血版随便调用",
+        account: "芋道源码",
+        date: "2026-05-10",
+        url: "https://mp.weixin.qq.com/s/jfXLyidW3I3FU5_EcSn_nw",
+        tags: ["AI/大模型", "工具", "开源项目"],
+        summary: "NVIDIA NIM是NVIDIA官方模型推理平台，提供DeepSeek-V4 Pro满血版（1.6万亿参数）等主流大模型免费调用。API Key有效期可选100年，每分钟40次调用、总量不限、Token不限，适合测试开发和接口联调。调用方式兼容OpenAI协议，只需更换base_url和api_key即可。",
+        keyPoints: [
+          "NVIDIA官方平台：build.nvidia.com，非第三方代理，配额稳定可靠",
+          "DeepSeek-V4 Pro满血版：1.6万亿参数，平时官方API调用成本很高，这里直接免费",
+          "100年有效期Key：三步获取（注册→Get API Key→选择100年有效期），不用绑卡",
+          "OpenAI兼容协议：只需更换base_url为https://integrate.api.nvidia.com/v1，代码一行不用改",
+          "调用限制明确：每分钟40次、总次数不限、Token不限——对测试开发够用，对生产不够",
+          "支持模型丰富：DeepSeek/GLM/MiniMax/Qwen-Coder/Llama等，覆盖代码/多模态/嵌入模型",
+          "yudao集成方案：yudao-module-ai/yudao-cloud已集成16家大模型，可直接配置使用",
+          "适合场景：写测试用例、跑demo，做技术验证——不怕Key欠费"
+        ],
+        repos: [
+          { name: "ruoyi-vue-pro", github: "https://gitee.com/zhijiantianya/ruoyi-vue-pro", localPath: "—", status: "pending", stars: "—" },
+          { name: "yudao-cloud", github: "https://gitee.com/zhijiantianya/yudao-cloud", localPath: "—", status: "pending", stars: "—" }
+        ],
+        evaluation: "与我们当前项目的AI工具链高度相关！(1) **免费调用大模型**：我们的项目需要AI辅助分析文章、生成摘要，NVIDIA NIM可以提供稳定的免费API来源；(2) **OpenAI兼容**：当前项目使用的AI调用逻辑可以无缝迁移到NVIDIA NIM，只需修改base_url和api_key；(3) **DeepSeek-V4 Pro**：作为国产顶级大模型，在代码生成和复杂推理上表现优秀，适合辅助量化策略开发；(4) **yudao集成参考**：yudao的多模型集成方案值得学习，可用于构建更灵活的AI服务架构。核心局限：限流40次/分钟，不适合高并发生产环境。建议用于开发测试和demo验证，生产环境考虑自部署或付费API。"
       }
     ];
 
